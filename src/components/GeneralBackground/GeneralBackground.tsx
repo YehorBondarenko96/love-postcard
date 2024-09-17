@@ -1,30 +1,37 @@
 import css from "./GeneralBackground.module.css"
 import Heart from "../../svg-components/Heart"
+import { useSelector } from "react-redux";
+import { setScreenWidth } from "../../redux/selectors";
 
 type GeneralBackgroundProps = {
   children: React.ReactNode
 }
 
 const GeneralBackground = ({ children }: GeneralBackgroundProps) => {
+  const screenWidth = useSelector(setScreenWidth);
+
   const randomNumber = () => {
-    const result = Math.ceil(Math.random() * 1000);
+    const result = Math.ceil(Math.random() * screenWidth);
     return result 
   }
-  const number = randomNumber() + 300;
+  const number = randomNumber() + screenWidth/3;
   const heartArray = [];
   const time = () => {
     const randomTime = Math.random() * 32;
     return randomTime < 8 ? randomTime + 8 : randomTime
   };
   for (let i = 0; i <= number; i++){
-    const left = randomNumber()/10;
+    const left = () => { 
+      const random = randomNumber() > screenWidth/2 ? randomNumber() / (screenWidth/100) - 10 : randomNumber() / (screenWidth/100) + 10;
+      return random
+    }; 
     const top = () => {
-      const random = randomNumber() > 500 ? randomNumber() / 10 : 0 - randomNumber() / 10;
-      const randomTop = random > 120 ? random - 120 : random < -120 ? random + 120 : random;
+      const random = randomNumber() > screenWidth/2 ? randomNumber() / (screenWidth/100) : 0 - randomNumber() / (screenWidth/100);
+      const randomTop = random > (screenWidth/10 + 20) ? random - (screenWidth/10 + 20) : random < -(screenWidth/10 + 20) ? random + (screenWidth/10 + 20) : random;
       return randomTop
     }
     const heartObj = {
-      left: `${left}%`,
+      left: `${left()}%`,
       top: `${top()}%`,
     }
     heartArray.push(heartObj)
