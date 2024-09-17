@@ -1,0 +1,60 @@
+.allDiv{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.heartsBubblesDiv{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 2;
+}
+
+@keyframes waveUp {
+  0% {
+    opacity: 0;
+    top:calc(var(--top) + 100%);
+    transform: translateY(-100%) translateX(0);
+  }
+
+  25%{
+    opacity: 1;
+    top: calc(var(--top) + 75%);
+    transform: translateY(-75%) translateX(100%);
+  }
+
+  50% {
+    opacity: 1;
+    top: calc(var(--top) + 50%);
+    transform: translateY(-50%) translateX(0);
+  }
+
+  75% {
+    opacity: 1;
+    top: calc(var(--top) + 25%);
+    transform: translateY(-25%) translateX(100%);
+  }
+
+  100% {
+    opacity: 0;
+    top: calc(var(--top) + 0%);
+    transform: translateY(0) translateX(0);
+  }
+}
+
+.elem{
+  position: absolute;
+  display: inline-block;
+  left: var(--left);
+  animation: waveUp var(--time) linear infinite;
+}
+
+.childrenDiv{
+  position: relative;
+  z-index: 3;
+}
