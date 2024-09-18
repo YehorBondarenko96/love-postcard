@@ -11,6 +11,11 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --border-color: #fc657e;
+  --background-color: #ffa6b5;
+  --background-transparent-color: rgba(255, 130, 151, 0.7);
+  --black-background-transparent-color: rgba(0, 0, 0, 0.7);
 }
 
 a {
@@ -51,6 +56,23 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+p{
+  padding: 0;
+  margin: 0;
+}
+
+button{
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+button:hover,
+button:focus{
+  outline:none;
+  border: none;
 }
 
 @media (prefers-color-scheme: light) {

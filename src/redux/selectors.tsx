@@ -1,5 +1,6 @@
 interface ReduxState {
   screenWidth: number;
+  screenHeight: number;
 }
 
 interface RootState {
@@ -7,3 +8,5 @@ interface RootState {
 }
 
 export const setScreenWidth = (state: RootState) => state.redux.screenWidth;
+
+export const setScreenHeight = (state: RootState) => state.redux.screenHeight;

@@ -1,7 +1,7 @@
 import css from "./GeneralBackground.module.css"
 import Heart from "../../svg-components/Heart"
 import { useSelector } from "react-redux";
-import { setScreenWidth } from "../../redux/selectors";
+import { setScreenWidth, setScreenHeight } from "../../redux/selectors";
 
 type GeneralBackgroundProps = {
   children: React.ReactNode
@@ -9,6 +9,7 @@ type GeneralBackgroundProps = {
 
 const GeneralBackground = ({ children }: GeneralBackgroundProps) => {
   const screenWidth = useSelector(setScreenWidth);
+  const screenHeight = useSelector(setScreenHeight);
 
   const randomNumber = () => {
     const result = Math.ceil(Math.random() * screenWidth);
@@ -27,7 +28,7 @@ const GeneralBackground = ({ children }: GeneralBackgroundProps) => {
     }; 
     const top = () => {
       const random = randomNumber() > screenWidth/2 ? randomNumber() / (screenWidth/100) : 0 - randomNumber() / (screenWidth/100);
-      const randomTop = random > (screenWidth/10 + 20) ? random - (screenWidth/10 + 20) : random < -(screenWidth/10 + 20) ? random + (screenWidth/10 + 20) : random;
+      const randomTop = random > (screenWidth/10 + screenWidth/50) ? random - (screenWidth/10 + screenWidth/50) : random < -(screenWidth/10 + screenWidth/50) ? random + (screenWidth/10 + screenWidth/50) : random;
       return randomTop
     }
     const heartObj = {
@@ -37,8 +38,8 @@ const GeneralBackground = ({ children }: GeneralBackgroundProps) => {
     heartArray.push(heartObj)
   }
   return (
-    <div className={css.allDiv}>
-      <div className={css.heartsBubblesDiv}>
+    <div className={css.allDiv} style={{'alignItems': screenWidth/2.2 < screenHeight ? 'center' : 'auto'}}>
+      <div className={css.heartsBubblesDiv} style={{'minHeight': screenWidth / 2.5 + 40 + 'px'}}>
         {heartArray.map((heart, index) => <div key={index} className={css.elem} style={{ '--left': heart.left, '--top': heart.top, '--time': `${time()}s` } as React.CSSProperties}>
           <Heart color={`rgb(255, ${Math.ceil(Math.random()*225)}, ${Math.ceil(Math.random()*225)})`} size={index % 10 === 0 ? Math.random() * 50 : Math.random() * 30} />
         </div>)}

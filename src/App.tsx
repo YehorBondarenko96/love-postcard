@@ -1,14 +1,16 @@
 import './App.css'
 import GeneralBackground from './components/GeneralBackground/GeneralBackground'
 import { useDispatch } from 'react-redux';
-import { setScreenWidth } from './redux/slice';
+import { setScreenWidth, setScreenHeight } from './redux/slice';
 import { useEffect } from 'react';
+import TimerForm from './components/TimerForm/TimerForm';
 
 function App() {
   const dispatch = useDispatch();
 const forOrientation = () => {
         setTimeout(() => {
-                dispatch(setScreenWidth(window.innerWidth));
+          dispatch(setScreenWidth(window.innerWidth));
+          dispatch(setScreenHeight(window.innerHeight));
         }, 100);
     };
 
@@ -21,7 +23,7 @@ const forOrientation = () => {
     });
   return (
       <GeneralBackground>
-        form
+        <TimerForm/>
       </GeneralBackground>
   )
 }
