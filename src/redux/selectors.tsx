@@ -1,12 +1,16 @@
 interface ReduxState {
   screenWidth: number;
   screenHeight: number;
+  answer: string | null;
 }
 
 interface RootState {
   redux: ReduxState;
 }
 
-export const setScreenWidth = (state: RootState) => state.redux.screenWidth;
+export const getScreenWidth = (state: RootState) => state.redux.screenWidth;
 
-export const setScreenHeight = (state: RootState) => state.redux.screenHeight;
+export const getScreenHeight = (state: RootState) => state.redux.screenHeight;
+
+export const getAnswer = (state: RootState) => state.redux.answer;
+

@@ -1,15 +1,17 @@
 import css from "./GeneralBackground.module.css"
 import Heart from "../../svg-components/Heart"
+import BrokenHeart from "../../svg-components/BrokenHeart";
 import { useSelector } from "react-redux";
-import { setScreenWidth, setScreenHeight } from "../../redux/selectors";
+import { getScreenWidth, getScreenHeight, getAnswer } from "../../redux/selectors";
 
 type GeneralBackgroundProps = {
   children: React.ReactNode
 }
 
 const GeneralBackground = ({ children }: GeneralBackgroundProps) => {
-  const screenWidth = useSelector(setScreenWidth);
-  const screenHeight = useSelector(setScreenHeight);
+  const screenWidth = useSelector(getScreenWidth);
+  const screenHeight = useSelector(getScreenHeight);
+  const answer = useSelector(getAnswer);
 
   const randomNumber = () => {
     const result = Math.ceil(Math.random() * screenWidth);
@@ -38,10 +40,14 @@ const GeneralBackground = ({ children }: GeneralBackgroundProps) => {
     heartArray.push(heartObj)
   }
   return (
-    <div className={css.allDiv} style={{'alignItems': screenWidth/2.2 < screenHeight ? 'center' : 'auto'}}>
+    <div className={css.allDiv}
+      style={{
+        'alignItems': screenWidth / 2.2 < screenHeight ? 'center' : 'auto',
+        'backgroundColor': answer === "badTimer" ? "var(--black-background-transparent-color)" : "transparent",
+      }}>
       <div className={css.heartsBubblesDiv} style={{'minHeight': screenWidth / 2.5 + 40 + 'px'}}>
         {heartArray.map((heart, index) => <div key={index} className={css.elem} style={{ '--left': heart.left, '--top': heart.top, '--time': `${time()}s` } as React.CSSProperties}>
-          <Heart color={`rgb(255, ${Math.ceil(Math.random()*225)}, ${Math.ceil(Math.random()*225)})`} size={index % 10 === 0 ? Math.random() * 50 : Math.random() * 30} />
+          {answer === "badTimer" ? <BrokenHeart color={`rgb(0, ${Math.ceil(Math.random()*225)}, ${Math.ceil(Math.random()*225)})`} size={index % 10 === 0 ? Math.random() * 50 : Math.random() * 30} /> : <Heart color={`rgb(255, ${Math.ceil(Math.random()*225)}, ${Math.ceil(Math.random()*225)})`} size={index % 10 === 0 ? Math.random() * 50 : Math.random() * 30} />}
         </div>)}
       </div>
       <div className={css.childrenDiv}>{children}</div>

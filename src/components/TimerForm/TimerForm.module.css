@@ -53,3 +53,16 @@
   left: 50%;
   transform: translate(-50%, -120%);
 }
+
+.badSpan{
+  display: inline-block;
+  position: relative;
+}
+
+.divInBadSpan{
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 5%;
+  transform: translateY(-60%);
+}

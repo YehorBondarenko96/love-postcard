@@ -14,7 +14,9 @@ const forOrientation = () => {
         }, 100);
     };
 
-  forOrientation();
+  useEffect(() => {
+    forOrientation();
+  })
 
   window.removeEventListener('orientationchange', forOrientation);
 
