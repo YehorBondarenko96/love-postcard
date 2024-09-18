@@ -1,11 +1,11 @@
 type BrokenHeartProps = {
-  size?: number
+  size?: number | string
   color?: string
 }
 
 const BrokenHeart = ({ size=100, color='#000000' }: BrokenHeartProps) => {
   return (
-    <svg fill={color} height={size} width={size} version="1.1" id="Layer_1" viewBox="0 0 508.471 508.471">
+    <svg fill={color} width={typeof size === "number" ? `${size}px` : size} height={typeof size === "number" ? `${size}px` : size} version="1.1" id="Layer_1" viewBox="0 0 508.471 508.471">
 <g>
 	<g>
 		<g>

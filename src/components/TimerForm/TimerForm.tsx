@@ -15,8 +15,6 @@ const TimerForm = () => {
   const [remainingHours, setRemainingHours] = useState<number>(0);
   const [remainingMinutes, setRemainingMinutes] = useState<number>(0);
   const [remainingSeconds, setRemainingSeconds] = useState<number>(0);
-  const [hoverCoefGood, setHoverCoefGood] = useState<number>(1);
-  const [hoverCoefBad, setHoverCoefBad] = useState<number>(1);
   const screenWidth = useSelector(getScreenWidth);
   const answer = useSelector(getAnswer);
 
@@ -99,7 +97,7 @@ const TimerForm = () => {
       const brokenHeart = brokenHeartRef.current;
       const bedAnswer = bedAnswerRef.current;
 
-      allDiv.style.height = screenWidth / 2.5 + 'px';
+      allDiv.style.height = answer === "badTimer" ? screenWidth / 3 + 'px' : screenWidth / 2.5 + 'px';
       secondAllDiv.style.width = screenWidth / 1.9 + 'px';
       secondAllDiv.style.padding = screenWidth / 50 + 'px';
       secondAllDiv.style.paddingBottom = screenWidth / 20 + 'px';
@@ -206,22 +204,20 @@ const TimerForm = () => {
       </div></>
         }
         <button ref={heartRef} className={`${css.button} ${css.heart}`}
-          onMouseEnter={() => setHoverCoefGood(1.05)}
-          onMouseLeave={() => setHoverCoefGood(1)}
           onClick={() => dispatch(setAnswer('goodTimer'))}
+          style={{'--size': screenWidth > 0 ? screenWidth / 5 + 'px' : 200 + 'px'} as React.CSSProperties}
         >
         <div className={css.heartImageDiv}>
-           <Heart size={screenWidth > 0 ? screenWidth/5 * hoverCoefGood : 200} color={answer === "badTimer" ? "var(--dark-red)" : "red"} />
+          <Heart size='100%' color={answer === "badTimer" ? "var(--dark-red)" : "red"} />
         <img ref={answerFirstMessageRef} className={css.answerFirstMessage} src="/love-postcard/images/answer-first-message.jpg" alt="Answer first message"/>
-       </div>
+      </div>
       </button>
         <button ref={brokenHeartRef} className={`${css.button} ${css.brokenHeart}`}
-          onMouseEnter={() => setHoverCoefBad(1.05)}
-          onMouseLeave={() => setHoverCoefBad(1)}
           onClick={() => dispatch(setAnswer('badTimer'))}
+          style={{'--size': screenWidth > 0 ? screenWidth / 5 + 'px' : 200 + 'px'} as React.CSSProperties}
         >
           <div className={css.heartImageDiv}>
-            <BrokenHeart size={screenWidth > 0 ? screenWidth / 5 * hoverCoefBad : 200} />
+            <BrokenHeart size='100%' />
             <div ref={bedAnswerRef} className={css.bedAnswer}>
               <p>Щось інакше!!!</p>
             <p>{`Все пішло не по плану(((`}</p>
