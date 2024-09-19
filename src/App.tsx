@@ -30,8 +30,8 @@ const forOrientation = () => {
     });
   return (
       <GeneralBackground>
-      {answer !== "goodTimer" && <TimerForm />}
-      {answer === "goodTimer" && <FinalComponent/>}
+      {(answer !== "goodTimer" && answer !== "goodFinal") && <TimerForm />}
+      {(answer === "goodTimer" || answer === "goodFinal") && <FinalComponent/>}
       </GeneralBackground>
   )
 }
