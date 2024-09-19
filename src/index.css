@@ -12,6 +12,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  --white-background-transparent-color: rgba(255, 255, 255, 0.7);
   --border-color: #fc657e;
   --background-color: #ffa6b5;
   --background-transparent-color: rgba(255, 130, 151, 0.7);

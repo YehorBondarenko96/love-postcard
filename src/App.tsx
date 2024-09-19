@@ -1,12 +1,17 @@
 import './App.css'
 import GeneralBackground from './components/GeneralBackground/GeneralBackground'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setScreenWidth, setScreenHeight } from './redux/slice';
+import { getAnswer } from './redux/selectors';
 import { useEffect } from 'react';
 import TimerForm from './components/TimerForm/TimerForm';
+import FinalComponent from './components/FinalComponent/FinalComponent';
 
 function App() {
   const dispatch = useDispatch();
+
+  const answer = useSelector(getAnswer);
+
 const forOrientation = () => {
         setTimeout(() => {
           dispatch(setScreenWidth(window.innerWidth));
@@ -25,7 +30,8 @@ const forOrientation = () => {
     });
   return (
       <GeneralBackground>
-        <TimerForm/>
+      {answer !== "goodTimer" && <TimerForm />}
+      {answer === "goodTimer" && <FinalComponent/>}
       </GeneralBackground>
   )
 }

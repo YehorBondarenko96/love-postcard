@@ -1,0 +1,34 @@
+.generalText{
+  font-size: calc(var(--screenWidth)/55);
+}
+
+.answerDiv{
+  width: calc(var(--screenWidth)/10);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  font-size: calc(var(--screenWidth)/72);
+}
+
+.badAnswerDiv{
+  background-color: var(--black-background-transparent-color);
+  border-radius: 20px;
+  padding: 5px;
+  top: 47%;
+  transition: color 250ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.lastBadMessage{
+  width: calc(var(--screenWidth)/5);
+  position: absolute;
+  top: 0;
+  left: 100%;
+  transform: translateY(-100%);
+  font-size: calc(var(--screenWidth)/55);
+  color: black;
+  background-color: var(--white-background-transparent-color);
+  border-radius: 10px;
+  padding: calc(var(--screenWidth)/55);
+  transition: opacity 250ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}

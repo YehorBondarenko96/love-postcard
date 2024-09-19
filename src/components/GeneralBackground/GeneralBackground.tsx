@@ -25,13 +25,13 @@ const GeneralBackground = ({ children }: GeneralBackgroundProps) => {
   };
   for (let i = 0; i <= number; i++){
     const left = () => { 
-      const random = randomNumber() > screenWidth/2 ? randomNumber() / (screenWidth/100) - 10 : randomNumber() / (screenWidth/100) + 10;
+      const random = randomNumber() > screenWidth/2 ? randomNumber() / (screenWidth/100) - 10 :randomNumber() / (screenWidth/100) + 10;
       return random
     }; 
     const top = () => {
-      const random = randomNumber() > screenWidth/2 ? randomNumber() / (screenWidth/100) : 0 - randomNumber() / (screenWidth/100);
-      const randomTop = random > (screenWidth/10 + screenWidth/50) ? random - (screenWidth/10 + screenWidth/50) : random < -(screenWidth/10 + screenWidth/50) ? random + (screenWidth/10 + screenWidth/50) : random;
-      return randomTop
+      const firstRandom = randomNumber();
+      const random = randomNumber() > screenWidth/2 ? firstRandom / screenWidth * 100 : 0 - firstRandom / screenWidth * 100;
+      return random
     }
     const heartObj = {
       left: `${left()}%`,
@@ -43,9 +43,12 @@ const GeneralBackground = ({ children }: GeneralBackgroundProps) => {
     <div className={css.allDiv}
       style={{
         'alignItems': screenWidth / 2.2 < screenHeight ? 'center' : 'auto',
-        'backgroundColor': answer === "badTimer" ? "var(--black-background-transparent-color)" : "transparent",
       }}>
-      <div className={css.heartsBubblesDiv} style={{'minHeight': screenWidth / 2.5 + 40 + 'px'}}>
+      <div className={css.heartsBubblesDiv}
+        style={{
+          'minHeight': screenWidth / 2.5 + 40 + 'px',
+          'backgroundColor': answer === "badTimer" ? "var(--black-background-transparent-color)" : "transparent",
+        }}>
         {heartArray.map((heart, index) => <div key={index} className={css.elem} style={{ '--left': heart.left, '--top': heart.top, '--time': `${time()}s` } as React.CSSProperties}>
           {answer === "badTimer" ? <BrokenHeart color={`rgb(0, ${Math.ceil(Math.random()*225)}, ${Math.ceil(Math.random()*225)})`} size={index % 10 === 0 ? Math.random() * 50 : Math.random() * 30} /> : <Heart color={`rgb(255, ${Math.ceil(Math.random()*225)}, ${Math.ceil(Math.random()*225)})`} size={index % 10 === 0 ? Math.random() * 50 : Math.random() * 30} />}
         </div>)}

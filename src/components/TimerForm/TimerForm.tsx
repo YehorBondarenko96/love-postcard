@@ -1,14 +1,11 @@
 import css from "./TimerForm.module.css";
 import { useRef, useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { setAnswer } from "../../redux/slice";
+import { useSelector } from "react-redux";
 import { getScreenWidth, getAnswer } from "../../redux/selectors";
 import Heart from "../../svg-components/Heart";
-import BrokenHeart from "../../svg-components/BrokenHeart";
+import FormTemplate from "../FormTemplate/FormTemplate";
 
 const TimerForm = () => {
-  const dispatch = useDispatch();
-
   const [years, setYears] = useState<number>(0);
   const [remainingMonths, setRemainingMonths] = useState<number>(0);
   const [remainingDays, setRemainingDays] = useState<number>(0);
@@ -18,8 +15,7 @@ const TimerForm = () => {
   const screenWidth = useSelector(getScreenWidth);
   const answer = useSelector(getAnswer);
 
-  const allDivRef = useRef<HTMLDivElement>(null);
-  const secondAllDivRef = useRef<HTMLDivElement>(null);
+  
   const firstMassageRef = useRef<HTMLImageElement>(null);
   const generalTextRef = useRef<HTMLParagraphElement>(null);
   const yearsRef = useRef<HTMLSpanElement>(null);
@@ -30,15 +26,13 @@ const TimerForm = () => {
   const secondsRef = useRef<HTMLSpanElement>(null);
   const questionTextRef = useRef<HTMLParagraphElement>(null);
   const answerFirstMessageRef = useRef<HTMLImageElement>(null);
-  const heartRef = useRef<HTMLButtonElement>(null);
-  const brokenHeartRef = useRef<HTMLButtonElement>(null);
   const bedAnswerRef = useRef<HTMLDivElement>(null);
   const badGeneralTextRef = useRef<HTMLParagraphElement>(null);
   const badSecondGeneralTextRef = useRef<HTMLParagraphElement>(null);
 
 
   useEffect(() => {
-    const start = new Date("2021-10-21 19:43:00");
+    const start = new Date("2021-10-20 19:43:00");
 
     const interval = setInterval(() => {
       const now = new Date();
@@ -87,26 +81,11 @@ const TimerForm = () => {
   }, []);
 
   useEffect(() => {
-    if (screenWidth > 0 && allDivRef.current && secondAllDivRef.current
-      && answerFirstMessageRef.current
-      && heartRef.current && brokenHeartRef.current && bedAnswerRef.current) {
-      const allDiv = allDivRef.current;
-      const secondAllDiv = secondAllDivRef.current;
+    if (screenWidth > 0 && answerFirstMessageRef.current && bedAnswerRef.current) {
       const answerFirstMessage = answerFirstMessageRef.current;
-      const heart = heartRef.current;
-      const brokenHeart = brokenHeartRef.current;
       const bedAnswer = bedAnswerRef.current;
 
-      allDiv.style.height = answer === "badTimer" ? screenWidth / 3 + 'px' : screenWidth / 2.5 + 'px';
-      secondAllDiv.style.width = screenWidth / 1.9 + 'px';
-      secondAllDiv.style.padding = screenWidth / 50 + 'px';
-      secondAllDiv.style.paddingBottom = screenWidth / 20 + 'px';
-      secondAllDiv.style.gap = screenWidth / 50 + 'px';
-
       answerFirstMessage.style.width = screenWidth / 13 + 'px';
-
-      heart.style.right = screenWidth / 30 + 'px';
-      brokenHeart.style.left = screenWidth / 30 + 'px';
 
       bedAnswer.style.fontSize = screenWidth / 70 + 'px';
     }
@@ -176,9 +155,21 @@ const TimerForm = () => {
   }
 
   return (
-    <div ref={allDivRef} className={css.allDiv}>
-      <div ref={secondAllDivRef} className={css.secondAllDiv}>
-        {answer === "badTimer" ? 
+    <FormTemplate
+      goodAnswer={
+        <img ref={answerFirstMessageRef} className={css.answerFirstMessage} src="/love-postcard/images/answer-first-message.jpg" alt="Answer first message"/>
+      }
+      badAnswer={
+            <div ref={bedAnswerRef} className={css.bedAnswer}>
+              <p>Щось інакше!!!</p>
+            <p>{`Все пішло не по плану(((`}</p>
+            </div>
+      }
+      goodAnswerValue="goodTimer"
+      badAnswerValue="badTimer"
+      heightCoef={answer === "badTimer" ? 3 : 2.5}
+    >
+      {answer === "badTimer" ? 
           <div>
             <p ref={badGeneralTextRef} className={css.text}>Уупс... Зрається ти випадково натиснула не ту кнопку, адже у нас все ідеально <span className={css.badSpan}>
               <span className={css.divInBadSpan}>
@@ -186,46 +177,24 @@ const TimerForm = () => {
               </span>
             </span>
             </p>
-            <p ref={badSecondGeneralTextRef} className={css.text}>{'Але не засмучуйся, завжди можна все виправити і обрати правильний варіннт))'}</p>
+            <p ref={badSecondGeneralTextRef} className={css.text}>{'Але не засмучуйся, завжди можна все виправити і обрати правильний варіант))'}</p>
           </div>
         :
           <>
           <img ref={firstMassageRef} className={css.firstMassage} src='/love-postcard/images/first-message.jpg' alt="First message" />
       <div>
-        <p ref={generalTextRef} className={css.text}>Cаме це повідомлення будо перше, що я написав тобі в Телеграмі. Саме це повідомлення стало відправною точкою нашої чарвної історії, яка триває вже
+        <p ref={generalTextRef} className={css.text}>Cаме це повідомлення будо перше, що я написав тобі в Телеграмі. I хоч в Badoo почалась наша чарівна історія, яка триває вже
         <span ref={yearsRef} className={css.time}>{years}</span> {helpRightWords(years) === "1" ? "рік" : helpRightWords(years) === "2" ? "роки" : "років"},
         <span ref={monthsRef} className={css.time}>{remainingMonths}</span> {helpRightWords(remainingMonths) === "1" ? "місяць" : helpRightWords(remainingMonths) === "2" ? "місяці" : "місяців"},
         <span ref={daysRef} className={css.time}>{remainingDays}</span> {helpRightWords(remainingDays) === "1" ? "день" : helpRightWords(remainingDays) === "2" ? "дні" : "днів"},
         <span ref={hoursRef} className={css.time}>{remainingHours}</span> {helpRightWords(remainingHours) === "1" ? "годину" : helpRightWords(remainingHours) === "2" ? "години" : "годин"},
         <span ref={minutesRef} className={css.time}>{remainingMinutes}</span> {helpRightWords(remainingMinutes) === "1" ? "хвилину" : helpRightWords(remainingMinutes) === "2" ? "хвилини" : "хвилин"},
-        <span ref={secondsRef} className={css.time}>{remainingSeconds}</span> {helpRightWords(remainingSeconds) === "1" ? "секунду" : helpRightWords(remainingSeconds) === "2" ? "секунди" : "cекунд"} і не збирається закінчуватися.
+        <span ref={secondsRef} className={css.time}>{remainingSeconds}</span> {helpRightWords(remainingSeconds) === "1" ? "секунду" : helpRightWords(remainingSeconds) === "2" ? "секунди" : "cекунд"} та не збирається закінчуватися, на це повидомлення ти могла відреагувати по-різному.
       </p>
       <p ref={questionTextRef} className={css.text}>І якби зараз в тебе зʼявилась би можливісь щось змінити в минулому, як би ти мені тоді відповіла на це првідомлення?</p>
       </div></>
         }
-        <button ref={heartRef} className={`${css.button} ${css.heart}`}
-          onClick={() => dispatch(setAnswer('goodTimer'))}
-          style={{'--size': screenWidth > 0 ? screenWidth / 5 + 'px' : 200 + 'px'} as React.CSSProperties}
-        >
-        <div className={css.heartImageDiv}>
-          <Heart size='100%' color={answer === "badTimer" ? "var(--dark-red)" : "red"} />
-        <img ref={answerFirstMessageRef} className={css.answerFirstMessage} src="/love-postcard/images/answer-first-message.jpg" alt="Answer first message"/>
-      </div>
-      </button>
-        <button ref={brokenHeartRef} className={`${css.button} ${css.brokenHeart}`}
-          onClick={() => dispatch(setAnswer('badTimer'))}
-          style={{'--size': screenWidth > 0 ? screenWidth / 5 + 'px' : 200 + 'px'} as React.CSSProperties}
-        >
-          <div className={css.heartImageDiv}>
-            <BrokenHeart size='100%' />
-            <div ref={bedAnswerRef} className={css.bedAnswer}>
-              <p>Щось інакше!!!</p>
-            <p>{`Все пішло не по плану(((`}</p>
-            </div>
-          </div>
-        </button>
-      </div>
-    </div>
+    </FormTemplate>
   )
 };
 
