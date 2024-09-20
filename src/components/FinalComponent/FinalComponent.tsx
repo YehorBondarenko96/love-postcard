@@ -152,14 +152,24 @@ const moveElement = useCallback((e: MouseEvent) => {
         </div>
       }
       badAnswerValue="badFinal"
-            heightCoef={4}
+            heightCoef={answer === 'goodFirst' ? 2.8 : 4}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
     >
+            {answer === 'goodFirst' &&
+              <p
+              className={css.generalText}
+                style={{
+                  'textIndent': screenWidth / 50,
+                  '--screenWidth': screenWidth + 'px'
+                } as React.CSSProperties}
+            >
+              {'Дуже тішусь, кохана, що ми з тобою на одній хвилі))) А тепер останнє питання:'}
+            </p>}
             <p
               className={css.generalText}
         style={{'--screenWidth': screenWidth + 'px'}as React.CSSProperties}
-            >{answer === "goodFinal" ? 'Робив з любовʼю та натхненний думками про тебе, моє сонечко' : answer === "badFinal" ? 'Мені хоченься пракати(((' : 'Ну що, тобі сподобався мій маленький інтерактивчик?)'}</p>
+            >{answer === "goodFinal" ? 'Робив з любовʼю та натхненний думками про тебе, моє сонечко' : answer === "badFinal" ? 'Мені хоченься пракати(((' : 'Тобі сподобався мій маленький інтерактивчик?)'}</p>
     </FormTemplate>
       }
     </>

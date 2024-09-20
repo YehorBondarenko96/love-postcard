@@ -5,6 +5,7 @@ import { getAnswer } from './redux/selectors';
 import { useEffect } from 'react';
 import TimerForm from './components/TimerForm/TimerForm';
 import FinalComponent from './components/FinalComponent/FinalComponent';
+import FirstQuestion from './components/FirstQuestion/FirstQuestion';
 
 function App() {
   const dispatch = useDispatch();
@@ -32,9 +33,12 @@ const forOrientation = () => {
       {(
         answer !== "goodTimer" &&
         answer !== "goodFinal" &&
-        answer !== "badFinal"
+        answer !== "badFinal" &&
+        answer !== "goodFirst" &&
+        answer !== "badFirst"
       ) && <TimerForm />}
-      {(answer === "goodTimer" ||
+      {(answer === "goodTimer" || answer === "badFirst") && <FirstQuestion/>}
+      {(answer === "goodFirst" ||
         answer === "goodFinal" ||
         answer === "badFinal"
       ) && <FinalComponent />}

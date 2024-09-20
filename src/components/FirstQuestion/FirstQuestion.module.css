@@ -1,0 +1,46 @@
+.title{
+  text-align: center;
+}
+
+.generalText {
+  font-size: calc(var(--screenWidth)/60);
+  text-indent: calc(var(--screenWidth)/50);
+}
+
+.answerDiv {
+  width: calc(var(--screenWidth)/5.5);
+  position: absolute;
+  top: 36%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: calc(var(--screenWidth)/70);
+}
+
+.badAnswerDiv {
+  background-color: var(--black-background-transparent-color);
+  border-radius: 20px;
+  padding: 5px;
+  /* top: 37%; */
+  transition: color 250ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.badDiv{
+  font-size: calc(var(--screenWidth)/40);
+}
+
+.imageDiv{
+  position: relative;
+}
+
+.badText{
+  margin: 0;
+  text-align: center;
+}
+
+
+
+@media (max-width: 499px) {
+  .answerDiv {
+    font-size: calc(var(--screenWidth)/80);
+  }
+}

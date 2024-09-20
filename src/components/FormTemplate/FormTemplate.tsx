@@ -14,7 +14,8 @@ type GeneralBackgroundProps = {
   badAnswerValue: string,
   heightCoef: number,
   onMouseEnter?: (e: React.MouseEvent<HTMLButtonElement>) => void,
-  onMouseLeave?: (e: React.MouseEvent<HTMLButtonElement>) => void
+  onMouseLeave?: (e: React.MouseEvent<HTMLButtonElement>) => void,
+  onClick?: () => void
 }
 
 const FormTemplate = ({
@@ -25,7 +26,8 @@ const FormTemplate = ({
   badAnswerValue,
   heightCoef,
   onMouseEnter,
-  onMouseLeave
+  onMouseLeave,
+  onClick
 }: GeneralBackgroundProps) => {
   const dispatch = useDispatch();
   const screenWidth = useSelector(getScreenWidth);
@@ -47,7 +49,9 @@ const FormTemplate = ({
       allDiv.style.height = screenWidth / heightCoef + 'px';
       secondAllDiv.style.width = screenWidth / 1.9 + 'px';
       secondAllDiv.style.padding = screenWidth / 50 + 'px';
-      secondAllDiv.style.paddingBottom = screenWidth / 20 + 'px';
+      if (answer !== "badFirst") {
+        secondAllDiv.style.paddingBottom = screenWidth / 20 + 'px';
+      }
       secondAllDiv.style.gap = screenWidth / 50 + 'px';
       heart.style.right = screenWidth / 30 + 'px';
       brokenHeart.style.left = screenWidth / 30 + 'px';
@@ -77,7 +81,12 @@ const FormTemplate = ({
         <button id="draggableElement"
           ref={brokenHeartRef}
           className={`${css.button} ${answer === 'goodFinal' ? css.goodFinal : css.hoverButton}`}
-          onClick={() => dispatch(setAnswer(badAnswerValue))}
+          onClick={() => {
+            dispatch(setAnswer(badAnswerValue))
+            if (onClick) {
+              onClick()
+            }
+          }}
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
           disabled={answer === "goodFinal"}
