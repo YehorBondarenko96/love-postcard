@@ -8,7 +8,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -60%);
-  font-size: calc(var(--screenWidth)/72);
+  font-size: calc(var(--screenWidth)/70);
 }
 
 .badAnswerDiv{
@@ -39,9 +39,13 @@
     left: var(--left);
   }
 
+  10%{
+    opacity: 1;
+  }
+
   15% {
     opacity: 1;
-    top: -500%;
+    top: -700%;
     left: calc(var(--left) * 2.5);
   }
 
@@ -69,4 +73,12 @@
   display: inline-block;
   animation: waveUp var(--time) linear infinite;
   z-index: 9999;
+}
+
+
+
+@media (max-width: 499px) {
+  .answerDiv {
+      font-size: calc(var(--screenWidth)/80);
+    }
 }

@@ -117,7 +117,7 @@ const TimerForm = () => {
 
       answerFirstMessage.style.width = screenWidth / 13 + 'px';
 
-      bedAnswer.style.fontSize = screenWidth / 70 + 'px';
+      bedAnswer.style.fontSize = screenWidth > 500 ? screenWidth / 70 + 'px' : screenWidth / 80 + 'px';
     }
 
     if (firstMassageRef.current && generalTextRef.current && yearsRef.current && monthsRef.current
