@@ -91,7 +91,7 @@ const FormTemplate = ({
           onMouseLeave={onMouseLeave}
           disabled={answer === "goodFinal"}
           style={{
-            'zIndex': answer !== "goodFinal" ? "10" : '5',
+            'zIndex': answer === "goodFinal" ? "5" : '10',
             '--size': screenWidth > 0 ? screenWidth / 5 + 'px' : 200 + 'px'
           } as React.CSSProperties}
         >

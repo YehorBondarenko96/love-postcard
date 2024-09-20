@@ -71,8 +71,14 @@ const onClick = useCallback(() => {
         <div className={css.answerDiv} 
         style={{'--screenWidth': screenWidth + 'px'}as React.CSSProperties}
         >
-          <p>Звісно, коханий!!!</p>
-          <p>Жити без тебе не можу!!!</p>
+          <p
+            style={{
+              'whiteSpace': 'nowrap'
+          }}>Звісно, коханий!!!</p>
+          <p
+            style={{
+              'whiteSpace': 'nowrap'
+          }}>Жити без тебе не можу!!!</p>
         </div>
       }
       badAnswer={

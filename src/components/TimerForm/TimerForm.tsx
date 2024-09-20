@@ -219,7 +219,7 @@ const TimerForm = () => {
         <span ref={daysRef} className={css.time}>{remainingDays}</span> {helpRightWords(remainingDays) === "1" ? "день" : helpRightWords(remainingDays) === "2" ? "дні" : "днів"},
         <span ref={hoursRef} className={css.time}>{remainingHours}</span> {helpRightWords(remainingHours) === "1" ? "годину" : helpRightWords(remainingHours) === "2" ? "години" : "годин"},
         <span ref={minutesRef} className={css.time}>{remainingMinutes}</span> {helpRightWords(remainingMinutes) === "1" ? "хвилину" : helpRightWords(remainingMinutes) === "2" ? "хвилини" : "хвилин"},
-        <span ref={secondsRef} className={css.time}>{remainingSeconds}</span> {helpRightWords(remainingSeconds) === "1" ? "секунду" : helpRightWords(remainingSeconds) === "2" ? "секунди" : "cекунд"} та не збирається закінчуватися, на це повидомлення ти могла відреагувати по-різному.
+        <span ref={secondsRef} className={css.time}>{remainingSeconds}</span> {helpRightWords(remainingSeconds) === "1" ? "секунду" : helpRightWords(remainingSeconds) === "2" ? "секунди" : "cекунд"} та не збирається закінчуватися, на це повідомлення ти могла відреагувати по-різному.
       </p>
       <p ref={questionTextRef} className={css.text}>І якби зараз в тебе зʼявилась би можливісь щось змінити в минулому, як би ти мені тоді відповіла на це првідомлення?</p>
       </div></>
