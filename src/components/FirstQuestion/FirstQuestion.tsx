@@ -80,7 +80,10 @@ const onClick = useCallback(() => {
         style={{'--screenWidth': screenWidth + 'px'}as React.CSSProperties}
         >
           <p>Ну...</p>
-          <p>Я, навіть, не знаю...</p>
+          <p
+            style={{
+              'whiteSpace': 'nowrap'
+          }}>Я, навіть, не знаю...</p>
         </div>
       }
       goodAnswerValue="goodFirst"
