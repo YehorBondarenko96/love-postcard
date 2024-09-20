@@ -5,6 +5,16 @@ import { getScreenWidth, getAnswer } from "../../redux/selectors";
 import Heart from "../../svg-components/Heart";
 import FormTemplate from "../FormTemplate/FormTemplate";
 
+type correctsDateProps = {
+  now: Date,
+  yearsDiff: number,
+  monthsDiff: number,
+  daysDiff: number,
+  hoursDiff: number,
+  minutesDiff: number,
+  secondsDiff: number
+}
+
 const TimerForm = () => {
   const [years, setYears] = useState<number>(0);
   const [remainingMonths, setRemainingMonths] = useState<number>(0);
@@ -32,19 +42,8 @@ const TimerForm = () => {
 
 
   useEffect(() => {
-    const start = new Date("2021-10-20 19:43:00");
-
-    const interval = setInterval(() => {
-      const now = new Date();
-
-      let yearsDiff = now.getFullYear() - start.getFullYear();
-      let monthsDiff = now.getMonth() - start.getMonth();
-      let daysDiff = now.getDate() - start.getDate();
-      let hoursDiff = now.getHours() - start.getHours();
-      let minutesDiff = now.getMinutes() - start.getMinutes();
-      let secondsDiff = now.getSeconds() - start.getSeconds();
-
-      if (monthsDiff < 0) {
+     function correctsDate({now, yearsDiff, monthsDiff, daysDiff, hoursDiff, minutesDiff, secondsDiff}: correctsDateProps) {
+          if (monthsDiff < 0) {
         yearsDiff--;
         monthsDiff += 12;
       }
@@ -67,13 +66,44 @@ const TimerForm = () => {
         minutesDiff--;
         secondsDiff += 60;
       }
+    
+    if(
+      yearsDiff < 0 || 
+      monthsDiff < 0 || 
+      daysDiff < 0 || 
+      hoursDiff < 0 ||
+      minutesDiff < 0 || 
+      secondsDiff < 0) {
+      return correctsDate({now, yearsDiff, monthsDiff, daysDiff, hoursDiff, minutesDiff, secondsDiff})
+    } else {
+      const correctDate = {
+      yearsDiff, monthsDiff, daysDiff, hoursDiff, minutesDiff, secondsDiff
+    }
+    return correctDate}
+    }
+    
+    const start = new Date("2021-10-20 19:43:00");
 
-      setYears(yearsDiff);
-      setRemainingMonths(monthsDiff);
-      setRemainingDays(daysDiff);
-      setRemainingHours(hoursDiff);
-      setRemainingMinutes(minutesDiff);
-      setRemainingSeconds(secondsDiff);
+    const interval = setInterval(() => {
+      const now = new Date();
+
+      const yearsDiff = now.getFullYear() - start.getFullYear();
+      const monthsDiff = now.getMonth() - start.getMonth();
+      const daysDiff = now.getDate() - start.getDate();
+      const hoursDiff = now.getHours() - start.getHours();
+      const minutesDiff = now.getMinutes() - start.getMinutes();
+      const secondsDiff = now.getSeconds() - start.getSeconds();
+
+      const dirtyData = { now, yearsDiff, monthsDiff, daysDiff, hoursDiff, minutesDiff, secondsDiff};
+
+      const correctDate = correctsDate(dirtyData);
+
+      setYears(correctDate.yearsDiff);
+      setRemainingMonths(correctDate.monthsDiff);
+      setRemainingDays(correctDate.daysDiff);
+      setRemainingHours(correctDate.hoursDiff);
+      setRemainingMinutes(correctDate.minutesDiff);
+      setRemainingSeconds(correctDate.secondsDiff);
       
     }, 1000);
 

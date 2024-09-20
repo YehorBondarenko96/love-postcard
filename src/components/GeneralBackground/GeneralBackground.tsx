@@ -47,10 +47,10 @@ const GeneralBackground = ({ children }: GeneralBackgroundProps) => {
       <div className={css.heartsBubblesDiv}
         style={{
           'minHeight': screenWidth / 2.5 + 40 + 'px',
-          'backgroundColor': answer === "badTimer" ? "var(--black-background-transparent-color)" : "transparent",
+          'backgroundColor': (answer === "badTimer" || answer === "badFinal") ? "var(--black-background-transparent-color)" : "transparent",
         }}>
         {heartArray.map((heart, index) => <div key={index} className={css.elem} style={{ '--left': heart.left, '--top': heart.top, '--time': `${time()}s` } as React.CSSProperties}>
-          {answer === "badTimer" ? <BrokenHeart color={`rgb(0, ${Math.ceil(Math.random()*225)}, ${Math.ceil(Math.random()*225)})`} size={index % 10 === 0 ? Math.random() * 50 : Math.random() * 30} /> : <Heart color={`rgb(255, ${Math.ceil(Math.random()*225)}, ${Math.ceil(Math.random()*225)})`} size={index % 10 === 0 ? Math.random() * 50 : Math.random() * 30} />}
+          {(answer === "badTimer" || answer === "badFinal") ? <BrokenHeart color={`rgb(0, ${Math.ceil(Math.random()*225)}, ${Math.ceil(Math.random()*225)})`} size={index % 10 === 0 ? Math.random() * 50 : Math.random() * 30} /> : <Heart color={`rgb(255, ${Math.ceil(Math.random()*225)}, ${Math.ceil(Math.random()*225)})`} size={index % 10 === 0 ? Math.random() * 50 : Math.random() * 30} />}
         </div>)}
       </div>
       <div className={css.childrenDiv}>{children}</div>

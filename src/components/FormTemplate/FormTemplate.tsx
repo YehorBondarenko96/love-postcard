@@ -37,7 +37,8 @@ const FormTemplate = ({
   const brokenHeartRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (allDivRef.current && secondAllDivRef.current && heartRef.current && brokenHeartRef.current) {
+    if (allDivRef.current && secondAllDivRef.current && heartRef.current &&
+      brokenHeartRef.current && answer !== 'goodFinal') {
       const allDiv = allDivRef.current;
       const secondAllDiv = secondAllDivRef.current;
       const heart = heartRef.current;
@@ -59,9 +60,14 @@ const FormTemplate = ({
         ref={secondAllDivRef}
         className={css.secondAllDiv}>
         {children}
-        <button ref={heartRef} className={css.button}
+        <button
+          ref={heartRef}
+          className={`${css.button} ${answer === 'goodFinal' ? css.goodFinal : css.hoverButton}`}
           onClick={() => dispatch(setAnswer(goodAnswerValue))}
-          style={{'--size': screenWidth > 0 ? screenWidth / 5 + 'px' : 200 + 'px'} as React.CSSProperties}
+          style={{
+            'zIndex': '10',
+            '--size': screenWidth > 0 ? screenWidth / 5 + 'px' : 200 + 'px'
+          } as React.CSSProperties}
         >
           <div className={css.heartImageDiv}>
           <Heart size='100%' color={answer === "badTimer" ? "var(--dark-red)" : "red"} />
@@ -70,14 +76,18 @@ const FormTemplate = ({
       </button>
         <button id="draggableElement"
           ref={brokenHeartRef}
-          className={css.button}
+          className={`${css.button} ${answer === 'goodFinal' ? css.goodFinal : css.hoverButton}`}
           onClick={() => dispatch(setAnswer(badAnswerValue))}
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
-          style={{'--size': screenWidth > 0 ? screenWidth / 5 + 'px' : 200 + 'px'} as React.CSSProperties}
+          disabled={answer === "goodFinal"}
+          style={{
+            'zIndex': '5',
+            '--size': screenWidth > 0 ? screenWidth / 5 + 'px' : 200 + 'px'
+          } as React.CSSProperties}
         >
           <div className={css.heartImageDiv}>
-            <BrokenHeart size='100%' />
+            <BrokenHeart size='100%' color={answer === "goodFinal" ? 'var(--black-background-transparent-color)' : 'black' } />
             {badAnswer}
             </div>
         </button>

@@ -12,7 +12,6 @@
 }
 
 .badAnswerDiv{
-  background-color: var(--black-background-transparent-color);
   border-radius: 20px;
   padding: 5px;
   top: 47%;

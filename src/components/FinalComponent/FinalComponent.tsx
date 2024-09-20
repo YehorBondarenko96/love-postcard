@@ -17,7 +17,7 @@ const moveElement = useCallback((e: MouseEvent) => {
     const mouseX = e.clientX;
     const mouseY = e.clientY;
 
-  if (draggableElement && secondAllDiv) {
+  if (draggableElement && secondAllDiv && answer !== 'goodFinal') {
     const rect = secondAllDiv.getBoundingClientRect();
     const secondAllDivX = rect.left;
     const secondAllDivY = rect.top;
@@ -30,8 +30,8 @@ const moveElement = useCallback((e: MouseEvent) => {
       mouseX - secondAllDivX < draggableElement.offsetWidth / 2 + mouseX - secondAllDivX - (mouseX - elemX) &&
       mouseY - secondAllDivY < draggableElement.offsetHeight / 2 + mouseY - secondAllDivY - (mouseY - elemY)
     ) {
-      draggableElement.style.left = `${mouseX - secondAllDivX - (mouseX - elemX) + 10}px`;
-      draggableElement.style.top = `${mouseY - secondAllDivY - (mouseY - elemY) + 10}px`;
+      draggableElement.style.left = `${mouseX - secondAllDivX - (mouseX - elemX) + draggableElement.offsetWidth/4}px`;
+      draggableElement.style.top = `${mouseY - secondAllDivY - (mouseY - elemY) + draggableElement.offsetWidth/4}px`;
     } else if (
       mouseX - secondAllDivX >= draggableElement.offsetWidth / 2 + mouseX - secondAllDivX - (mouseX - elemX) &&
       mouseY - secondAllDivY >= draggableElement.offsetHeight / 2 + mouseY - secondAllDivY - (mouseY - elemY)
@@ -53,10 +53,10 @@ const moveElement = useCallback((e: MouseEvent) => {
       draggableElement.style.top = `${(mouseY - secondAllDivY - (mouseY - elemY)) - (draggableElement.offsetHeight - (mouseY - elemY)) - 10}px`;
     }
     }
-  }, [draggableElement, secondAllDiv]);
+  }, [draggableElement, secondAllDiv, answer]);
   
   const onMouseEnter = () => {
-    if (draggableElement instanceof HTMLElement && secondAllDiv instanceof HTMLDivElement) {
+    if (draggableElement instanceof HTMLElement && secondAllDiv instanceof HTMLDivElement && answer !== 'goodFinal') {
       document.addEventListener('mousemove', moveElement);
       setBadHover(true)
     }
@@ -86,7 +86,6 @@ const moveElement = useCallback((e: MouseEvent) => {
     const left = () => { 
       const random = randomNumber() > screenWidth/2 ? randomNumber() / (screenWidth/100) - 10 :randomNumber() / (screenWidth/100) + 10;
       const randomLeft = randomNumber() > screenWidth / 2 ? random : 0 - random;
-      console.log('randomLeft: ', randomLeft);
       return randomLeft
     }; 
     const top = () => {
@@ -134,6 +133,7 @@ const moveElement = useCallback((e: MouseEvent) => {
       badAnswer={
         <div className={`${css.answerDiv} ${css.badAnswerDiv}`} 
           style={{
+            'backgroundColor': answer === "goodFinal" ? 'transparent' : 'var(--black-background-transparent-color)',
             'color': badHover ? "var(--white-background-transparent-color)" : "#ffffff",
             '--screenWidth': screenWidth + 'px'
           } as React.CSSProperties}
@@ -159,7 +159,7 @@ const moveElement = useCallback((e: MouseEvent) => {
             <p
               className={css.generalText}
         style={{'--screenWidth': screenWidth + 'px'}as React.CSSProperties}
-            >{answer === "goodFinal" ? 'Робив з любовʼю та натхненний думками про тебе, моє сонечко' : 'Ну що, тобі сподобався мій маленький інтерактивчик?)'}</p>
+            >{answer === "goodFinal" ? 'Робив з любовʼю та натхненний думками про тебе, моє сонечко' : answer === "badFinal" ? 'Мені хоченься пракати(((' : 'Ну що, тобі сподобався мій маленький інтерактивчик?)'}</p>
     </FormTemplate>
       }
     </>

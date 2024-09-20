@@ -1,4 +1,3 @@
-import './App.css'
 import GeneralBackground from './components/GeneralBackground/GeneralBackground'
 import { useDispatch, useSelector } from 'react-redux';
 import { setScreenWidth, setScreenHeight } from './redux/slice';
@@ -30,8 +29,15 @@ const forOrientation = () => {
     });
   return (
       <GeneralBackground>
-      {(answer !== "goodTimer" && answer !== "goodFinal") && <TimerForm />}
-      {(answer === "goodTimer" || answer === "goodFinal") && <FinalComponent/>}
+      {(
+        answer !== "goodTimer" &&
+        answer !== "goodFinal" &&
+        answer !== "badFinal"
+      ) && <TimerForm />}
+      {(answer === "goodTimer" ||
+        answer === "goodFinal" ||
+        answer === "badFinal"
+      ) && <FinalComponent />}
       </GeneralBackground>
   )
 }
