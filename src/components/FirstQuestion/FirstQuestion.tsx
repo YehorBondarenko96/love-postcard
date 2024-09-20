@@ -85,7 +85,7 @@ const onClick = useCallback(() => {
       }
       goodAnswerValue="goodFirst"
       badAnswerValue="badFirst"
-      heightCoef={2}
+      heightCoef={2.1}
       onClick={onClick}
     >
       {answer === "badFirst" ?
@@ -100,7 +100,7 @@ const onClick = useCallback(() => {
               color='var(--white-background-transparent-color)'
               text="Я в шоці..."
               topText="37%"
-              size={screenWidth / 10}
+              size={screenWidth / 11}
               fontSize={screenWidth/75}
             />
           </div>

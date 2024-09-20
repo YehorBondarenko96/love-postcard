@@ -1,12 +1,13 @@
 import css from "./FinalComponent.module.css";
 import FormTemplate from "../FormTemplate/FormTemplate";
 import { useSelector } from "react-redux";
-import { getScreenWidth, getAnswer } from "../../redux/selectors";
+import { getScreenWidth, getScreenHeight, getAnswer } from "../../redux/selectors";
 import { useState, useEffect, useCallback } from "react";
 import Heart from "../../svg-components/Heart";
 
 const FinalComponent = () => {
   const screenWidth = useSelector(getScreenWidth);
+  const screenHeight = useSelector(getScreenHeight);
   const answer = useSelector(getAnswer);
 
   const [draggableElement, setDraggableElement] = useState<HTMLElement | null>(null);
@@ -123,7 +124,7 @@ const moveElement = useCallback((e: MouseEvent) => {
         </p>
                 <p>Це було дуже приємно</p>
                 {answer === "goodFinal" && 
-                  heartArray.map((heart, index) => <div key={index} className={css.elem} style={{ '--left': heart.left, '--top': heart.top, '--time': `${time()}s` } as React.CSSProperties}>
+                  heartArray.map((heart, index) => <div key={index} className={css.elem} style={{ '--left': heart.left, '--top': `${screenHeight/2}px`, '--time': `${time()}s` } as React.CSSProperties}>
           <Heart color={`rgb(255, ${Math.ceil(Math.random()*225)}, ${Math.ceil(Math.random()*225)})`} size={index % 10 === 0 ? Math.random() * 50 : Math.random() * 30} />
         </div>)
                 }

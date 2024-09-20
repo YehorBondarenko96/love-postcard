@@ -69,7 +69,7 @@ const FormTemplate = ({
           className={`${css.button} ${answer === 'goodFinal' ? css.goodFinal : css.hoverButton}`}
           onClick={() => dispatch(setAnswer(goodAnswerValue))}
           style={{
-            'zIndex': '10',
+            'zIndex': answer === 'goodFinal' ? '10' : '5',
             '--size': screenWidth > 0 ? screenWidth / 5 + 'px' : 200 + 'px'
           } as React.CSSProperties}
         >
@@ -91,7 +91,7 @@ const FormTemplate = ({
           onMouseLeave={onMouseLeave}
           disabled={answer === "goodFinal"}
           style={{
-            'zIndex': '5',
+            'zIndex': answer !== "goodFinal" ? "10" : '5',
             '--size': screenWidth > 0 ? screenWidth / 5 + 'px' : 200 + 'px'
           } as React.CSSProperties}
         >
